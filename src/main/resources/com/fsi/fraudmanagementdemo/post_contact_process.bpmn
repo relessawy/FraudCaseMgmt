@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/bpmn20" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_WEUVYFkREeqHYO9FS1YYaw" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/bpmn20" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_d2D98FkSEeqHYO9FS1YYaw" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
   <bpmn2:itemDefinition id="_fraud_caseItem" structureRef="com.fsi.fraudmanagementdemo.Fraud_Case"/>
   <bpmn2:process id="FraudCaseMgmt.post_contact_process" drools:packageName="com.fsi.fraudmanagementdemo" drools:version="1.0" drools:adHoc="false" name="post_contact_process" isExecutable="true">
     <bpmn2:property id="fraud_case" itemSubjectRef="_fraud_caseItem" name="fraud_case"/>
@@ -14,8 +14,22 @@
         </drools:metaData>
       </bpmn2:extensionElements>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="_A45AB9AC-4B62-426A-AF5B-7A59383825D7" sourceRef="_1077740B-4E0D-4406-A2C9-04C4BAB58821" targetRef="_D0DCF77B-AF78-492F-AB23-59F1D58F7664"/>
-    <bpmn2:sequenceFlow id="_2E2A8E3A-5B7D-4284-A970-8283E56E5C20" sourceRef="_1077740B-4E0D-4406-A2C9-04C4BAB58821" targetRef="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6"/>
+    <bpmn2:sequenceFlow id="_A45AB9AC-4B62-426A-AF5B-7A59383825D7" name="Fraud is true" sourceRef="_1077740B-4E0D-4406-A2C9-04C4BAB58821" targetRef="_D0DCF77B-AF78-492F-AB23-59F1D58F7664">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Fraud is true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_d2D98VkSEeqHYO9FS1YYaw" language="http://www.java.com/java"><![CDATA[return KieFunctions.isTrue(fraud_case.isIsFraud());]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_2E2A8E3A-5B7D-4284-A970-8283E56E5C20" name="Fraud is false" sourceRef="_1077740B-4E0D-4406-A2C9-04C4BAB58821" targetRef="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Fraud is false]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_d2D98lkSEeqHYO9FS1YYaw" language="http://www.java.com/java"><![CDATA[return KieFunctions.isFalse(fraud_case.isIsFraud());]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="_F97E833B-46EC-4CF2-998B-BB37A48EB4E2" sourceRef="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6" targetRef="_9F08F574-B6C8-4F80-8441-66A49C8A79EE">
       <bpmn2:extensionElements>
         <drools:metaData name="isAutoConnection.source">
@@ -37,78 +51,80 @@
     <bpmn2:startEvent id="_4F99DA12-1619-426D-8382-48015702937B">
       <bpmn2:outgoing>_A1E81281-E0B4-4554-BACA-54C79C36D4FF</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:task id="_D0DCF77B-AF78-492F-AB23-59F1D58F7664" name="Task">
+    <bpmn2:callActivity id="_D0DCF77B-AF78-492F-AB23-59F1D58F7664" drools:independent="false" drools:waitForCompletion="true" name="Suspend Credit Card" calledElement="CCFraudMgmtDemo.suspend-creditcard">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
-          <drools:metaValue><![CDATA[Task]]></drools:metaValue>
+          <drools:metaValue><![CDATA[Suspend Credit Card]]></drools:metaValue>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_A45AB9AC-4B62-426A-AF5B-7A59383825D7</bpmn2:incoming>
       <bpmn2:outgoing>_DB0FA24B-058A-4AA9-871A-DE42BF72F408</bpmn2:outgoing>
-    </bpmn2:task>
-    <bpmn2:task id="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6" name="Task">
+      <bpmn2:ioSpecification id="_d2D981kSEeqHYO9FS1YYaw"/>
+    </bpmn2:callActivity>
+    <bpmn2:scriptTask id="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6" name="Log not fraud" scriptFormat="http://www.java.com/java">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
-          <drools:metaValue><![CDATA[Task]]></drools:metaValue>
+          <drools:metaValue><![CDATA[Log not fraud]]></drools:metaValue>
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>_2E2A8E3A-5B7D-4284-A970-8283E56E5C20</bpmn2:incoming>
       <bpmn2:outgoing>_F97E833B-46EC-4CF2-998B-BB37A48EB4E2</bpmn2:outgoing>
-    </bpmn2:task>
+      <bpmn2:script><![CDATA[System.out.println("Contact with customer made, confirmed not a fraud case");]]></bpmn2:script>
+    </bpmn2:scriptTask>
     <bpmn2:endEvent id="_9F08F574-B6C8-4F80-8441-66A49C8A79EE">
       <bpmn2:incoming>_F97E833B-46EC-4CF2-998B-BB37A48EB4E2</bpmn2:incoming>
     </bpmn2:endEvent>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="_WEUVYVkREeqHYO9FS1YYaw">
-    <bpmndi:BPMNPlane id="_WEUVYlkREeqHYO9FS1YYaw" bpmnElement="FraudCaseMgmt.post_contact_process">
+  <bpmndi:BPMNDiagram id="_d2D99FkSEeqHYO9FS1YYaw">
+    <bpmndi:BPMNPlane id="_d2D99VkSEeqHYO9FS1YYaw" bpmnElement="FraudCaseMgmt.post_contact_process">
       <bpmndi:BPMNShape id="shape__9F08F574-B6C8-4F80-8441-66A49C8A79EE" bpmnElement="_9F08F574-B6C8-4F80-8441-66A49C8A79EE">
-        <dc:Bounds height="56.0" width="56.0" x="655.0" y="216.0"/>
+        <dc:Bounds height="56.0" width="56.0" x="683.0" y="298.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__C8B6AF94-6897-4CDC-B306-4E88195FF6D6" bpmnElement="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6">
-        <dc:Bounds height="102.0" width="154.0" x="421.0" y="193.0"/>
+        <dc:Bounds height="102.0" width="154.0" x="449.0" y="277.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__D0DCF77B-AF78-492F-AB23-59F1D58F7664" bpmnElement="_D0DCF77B-AF78-492F-AB23-59F1D58F7664">
-        <dc:Bounds height="102.0" width="154.0" x="421.0" y="4.0"/>
+        <dc:Bounds height="102.0" width="154.0" x="449.0" y="76.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__4F99DA12-1619-426D-8382-48015702937B" bpmnElement="_4F99DA12-1619-426D-8382-48015702937B">
-        <dc:Bounds height="56.0" width="56.0" x="100.0" y="100.0"/>
+        <dc:Bounds height="56.0" width="56.0" x="128.0" y="187.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__73A5610E-ED33-4375-8E14-3E9651535E1B" bpmnElement="_73A5610E-ED33-4375-8E14-3E9651535E1B">
-        <dc:Bounds height="56.0" width="56.0" x="655.0" y="27.0"/>
+        <dc:Bounds height="56.0" width="56.0" x="683.0" y="97.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__1077740B-4E0D-4406-A2C9-04C4BAB58821" bpmnElement="_1077740B-4E0D-4406-A2C9-04C4BAB58821">
-        <dc:Bounds height="56.0" width="56.0" x="236.0" y="100.0"/>
+        <dc:Bounds height="56.0" width="56.0" x="264.0" y="187.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="edge_shape__C8B6AF94-6897-4CDC-B306-4E88195FF6D6_to_shape__9F08F574-B6C8-4F80-8441-66A49C8A79EE" bpmnElement="_F97E833B-46EC-4CF2-998B-BB37A48EB4E2">
-        <di:waypoint xsi:type="dc:Point" x="575.0" y="244.0"/>
-        <di:waypoint xsi:type="dc:Point" x="655.0" y="244.0"/>
+        <di:waypoint xsi:type="dc:Point" x="603.0" y="328.0"/>
+        <di:waypoint xsi:type="dc:Point" x="683.0" y="326.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__1077740B-4E0D-4406-A2C9-04C4BAB58821_to_shape__C8B6AF94-6897-4CDC-B306-4E88195FF6D6" bpmnElement="_2E2A8E3A-5B7D-4284-A970-8283E56E5C20">
-        <di:waypoint xsi:type="dc:Point" x="264.0" y="156.0"/>
-        <di:waypoint xsi:type="dc:Point" x="264.0" y="244.0"/>
-        <di:waypoint xsi:type="dc:Point" x="421.0" y="244.0"/>
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="243.0"/>
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="331.0"/>
+        <di:waypoint xsi:type="dc:Point" x="449.0" y="328.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__1077740B-4E0D-4406-A2C9-04C4BAB58821_to_shape__D0DCF77B-AF78-492F-AB23-59F1D58F7664" bpmnElement="_A45AB9AC-4B62-426A-AF5B-7A59383825D7">
-        <di:waypoint xsi:type="dc:Point" x="264.0" y="100.0"/>
-        <di:waypoint xsi:type="dc:Point" x="264.0" y="55.0"/>
-        <di:waypoint xsi:type="dc:Point" x="421.0" y="55.0"/>
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="187.0"/>
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="125.0"/>
+        <di:waypoint xsi:type="dc:Point" x="449.0" y="127.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__D0DCF77B-AF78-492F-AB23-59F1D58F7664_to_shape__73A5610E-ED33-4375-8E14-3E9651535E1B" bpmnElement="_DB0FA24B-058A-4AA9-871A-DE42BF72F408">
-        <di:waypoint xsi:type="dc:Point" x="575.0" y="55.0"/>
-        <di:waypoint xsi:type="dc:Point" x="655.0" y="55.0"/>
+        <di:waypoint xsi:type="dc:Point" x="603.0" y="127.0"/>
+        <di:waypoint xsi:type="dc:Point" x="683.0" y="125.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__4F99DA12-1619-426D-8382-48015702937B_to_shape__1077740B-4E0D-4406-A2C9-04C4BAB58821" bpmnElement="_A1E81281-E0B4-4554-BACA-54C79C36D4FF">
-        <di:waypoint xsi:type="dc:Point" x="156.0" y="128.0"/>
-        <di:waypoint xsi:type="dc:Point" x="236.0" y="128.0"/>
+        <di:waypoint xsi:type="dc:Point" x="184.0" y="215.0"/>
+        <di:waypoint xsi:type="dc:Point" x="264.0" y="215.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-  <bpmn2:relationship id="_WEUVY1kREeqHYO9FS1YYaw" type="BPSimData">
+  <bpmn2:relationship id="_d2D99lkSEeqHYO9FS1YYaw" type="BPSimData">
     <bpmn2:extensionElements>
       <bpsim:BPSimData>
         <bpsim:Scenario xsi:type="bpsim:Scenario" id="default" name="Simulationscenario">
           <bpsim:ScenarioParameters xsi:type="bpsim:ScenarioParameters"/>
-          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6" id="_WEUVZFkREeqHYO9FS1YYaw">
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_C8B6AF94-6897-4CDC-B306-4E88195FF6D6" id="_d2D991kSEeqHYO9FS1YYaw">
             <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
               <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
                 <bpsim:NormalDistribution mean="0.0" standardDeviation="0.0"/>
@@ -128,7 +144,7 @@
               </bpsim:UnitCost>
             </bpsim:CostParameters>
           </bpsim:ElementParameters>
-          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_D0DCF77B-AF78-492F-AB23-59F1D58F7664" id="_WEUVZVkREeqHYO9FS1YYaw">
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_D0DCF77B-AF78-492F-AB23-59F1D58F7664" id="_d2D9-FkSEeqHYO9FS1YYaw">
             <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
               <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
                 <bpsim:NormalDistribution mean="0.0" standardDeviation="0.0"/>
@@ -148,7 +164,7 @@
               </bpsim:UnitCost>
             </bpsim:CostParameters>
           </bpsim:ElementParameters>
-          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_4F99DA12-1619-426D-8382-48015702937B" id="_WEUVZlkREeqHYO9FS1YYaw">
+          <bpsim:ElementParameters xsi:type="bpsim:ElementParameters" elementRef="_4F99DA12-1619-426D-8382-48015702937B" id="_d2D9-VkSEeqHYO9FS1YYaw">
             <bpsim:TimeParameters xsi:type="bpsim:TimeParameters">
               <bpsim:ProcessingTime xsi:type="bpsim:Parameter">
                 <bpsim:NormalDistribution mean="0.0" standardDeviation="0.0"/>
@@ -158,7 +174,7 @@
         </bpsim:Scenario>
       </bpsim:BPSimData>
     </bpmn2:extensionElements>
-    <bpmn2:source>_WEUVYFkREeqHYO9FS1YYaw</bpmn2:source>
-    <bpmn2:target>_WEUVYFkREeqHYO9FS1YYaw</bpmn2:target>
+    <bpmn2:source>_d2D98FkSEeqHYO9FS1YYaw</bpmn2:source>
+    <bpmn2:target>_d2D98FkSEeqHYO9FS1YYaw</bpmn2:target>
   </bpmn2:relationship>
 </bpmn2:definitions>
